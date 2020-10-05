@@ -1,4 +1,5 @@
-# from BDDCommon.CommonSteps import webstepscommon
+from BDDCommon.CommonSteps import webstepscommon
+from tests.python_main_site.steps import steps
 # from frontend.MyAccountPage.steps import my_account_steps
 # from frontend.HomePage.steps import home_page_steps
 # from frontend.CartPage.steps import cart_page_steps
