@@ -1,0 +1,45 @@
+PC-TALIBR2+cromox@PC-TALIBR2 $ pwd
+/cygdrive/c/Users/cromox/Desktop/newselenium/BDD_Behave_Selenium_MengKome
+
+PC-TALIBR2+cromox@PC-TALIBR2 $ behave
+Feature: Logging in with valid credentials # tests/python_main_site/features/feature1_login_valid.feature:1
+
+  Scenario: User login successfully                      # tests/python_main_site/features/feature1_login_valid.feature:3
+    Given I go to the site "mengkome.pythonanywhere.com" # BDDCommon/CommonSteps/webstepscommon.py:7
+    And I have a user                                    # tests/python_main_site/steps/steps.py:7
+    When I type email                                    # tests/python_main_site/steps/steps.py:14
+    When I type password                                 # tests/python_main_site/steps/steps.py:19
+    When I click on 'Login'                              # tests/python_main_site/steps/steps.py:24
+    Then I should see the text Welcome                   # tests/python_main_site/steps/steps.py:29
+
+1 feature passed, 0 failed, 0 skipped
+1 scenario passed, 0 failed, 0 skipped
+6 steps passed, 0 failed, 0 skipped, 0 undefined
+Took 0m3.023s
+
+
+PC-TALIBR2+cromox@PC-TALIBR2 $
+
+PC-TALIBR2+cromox@PC-TALIBR2 $ behave --no-capture
+Feature: Logging in with valid credentials # tests/python_main_site/features/feature1_login_valid.feature:1
+
+  Scenario: User login successfully                      # tests/python_main_site/features/feature1_login_valid.feature:3
+    Given I go to the site "mengkome.pythonanywhere.com" # BDDCommon/CommonSteps/webstepscommon.py:7
+Navigating to the site: http://mengkome.pythonanywhere.com/admin/login/?next=/
+    And I have a user                                    # tests/python_main_site/steps/steps.py:7
+USER / PSWD = bacaone / qawsed123456
+    When I type email                                    # tests/python_main_site/steps/steps.py:14
+TEST DRIVER email = <selenium.webdriver.chrome.webdriver.WebDriver (session="00c46f4c5a871f4274018616ad29c681")>
+    When I type password                                 # tests/python_main_site/steps/steps.py:19
+TEST DRIVER pswd = <selenium.webdriver.chrome.webdriver.WebDriver (session="00c46f4c5a871f4274018616ad29c681")>
+    When I click on 'Login'                              # tests/python_main_site/steps/steps.py:24
+TEST DRIVER login = <selenium.webdriver.chrome.webdriver.WebDriver (session="00c46f4c5a871f4274018616ad29c681")>
+    Then I should see the text Welcome                   # tests/python_main_site/steps/steps.py:29
+TEST DRIVER welcome = <selenium.webdriver.chrome.webdriver.WebDriver (session="00c46f4c5a871f4274018616ad29c681")>
+
+1 feature passed, 0 failed, 0 skipped
+1 scenario passed, 0 failed, 0 skipped
+6 steps passed, 0 failed, 0 skipped, 0 undefined
+Took 0m2.823s
+
+PC-TALIBR2+cromox@PC-TALIBR2 $
