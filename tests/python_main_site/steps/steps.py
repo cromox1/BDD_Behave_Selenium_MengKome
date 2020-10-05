@@ -25,4 +25,3 @@ def fill_in_pswd(context):
 @then("I should see the text Welcome")
 def chk_success_login(context):
     pass
-

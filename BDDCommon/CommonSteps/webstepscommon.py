@@ -4,7 +4,6 @@ from BDDCommon.CommonConfigs import urlconfig
 # import pdb
 
 # start of step definitions
-
 @given('I go to the site "{site}"')
 def go_to_url(context, site):
     """
@@ -14,10 +13,8 @@ def go_to_url(context, site):
     """
     url = urlconfig.URLCONFIG.get(site)
     print("Navigating to the site: {}".format(url))
-
     context.driver = webcommon.go_to(url)
 
-#========================================================================================#
 @then('the page title should be "{expected_title}"')
 def verify_homepage_title(context, expected_title):
     """
@@ -26,10 +23,8 @@ def verify_homepage_title(context, expected_title):
     :param expected_title:
     :return:
     """
-
     webcommon.assert_page_title(context, expected_title)
 
-#========================================================================================#
 @then('current url should be "{expected_url}"')
 def verify_current_url(context, expected_url):
     """
@@ -37,5 +32,4 @@ def verify_current_url(context, expected_url):
     :param context:
     :param expected_url:
     """
-
     webcommon.assert_current_url(context, expected_url)
