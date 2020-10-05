@@ -2,7 +2,8 @@ Feature: Logging in with valid credentials
 
     Scenario: User login successfully
 
-        Given I have a user
+        Given I go to the site "mengkome.pythonanywhere.com"
+        And I have a user
         When I type email
         When I type password
         When I click on 'Login'
