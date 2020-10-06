@@ -6,7 +6,7 @@ Selenium on MengKome DJango website using BDD Behave
 Assignment 1 (Test1) :
 
 - Go to main page https://mengkome.pythonanywhere.com/
-- Login (with admin username / passwd = bacaone / qawsed123456 )
+- Login (with admin username / passwd = bacaone / xxxxxxxxxxxx )
 - Check some infos inside 
   - go & click Users button
   - click at your username
