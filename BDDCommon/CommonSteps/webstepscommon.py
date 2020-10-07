@@ -1,7 +1,7 @@
 from behave import given, when, then
 from BDDCommon.CommonFuncs import webcommon
 from BDDCommon.CommonConfigs import urlconfig
-from time import sleep
+# from time import sleep
 # import pdb
 
 # start of step definitions

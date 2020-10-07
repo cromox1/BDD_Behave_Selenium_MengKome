@@ -1,40 +1,68 @@
-from time import sleep
-
 from behave import given, when, then
 from selenium.webdriver.common.keys import Keys
 
 from BDDCommon.CommonConfigs import urlconfig
 from BDDCommon.CommonFuncs import webcommon
 from BDDCommon.CommonSteps import *
+from time import sleep
 
-@given("I have a user")
+@given("I have a valid user")
 def existing_valid_user(context):
-    context.user1 = 'bacaone'
-    context.pswd1 = 'qawsed123456'
-    print('USER / PSWD = ' + context.user1 + ' / ' + str(len(context.pswd1) * '*'))
+    context.usertype = 'valid'
+    user1 = 'bacaone'
+    pswd1 = 'qawsed123456'
+    # print('USER / PSWD = ' + user1 + ' / ' + str(len(pswd1) * '*'))
+    return user1,pswd1
+
+@given("I have an invalid user")
+def existing_invalid_user(context):
+    context.usertype = 'invalid'
+    user1 = 'qwertyone'
+    pswd1 = 'thequickbrownfox'
+    # print('USER / PSWD = ' + user1 + ' / ' + str(len(pswd1) * '*'))
+    return user1,pswd1
 
 @when("I type username")
 def fill_in_user(context):
+    if context.usertype == 'valid':
+        user = existing_valid_user(context)
+    else:
+        user = existing_invalid_user(context)
+    context.user1 = user[0]
     context.driver.find_element_by_name('username').click()
     context.driver.find_element_by_name('username').send_keys(context.user1 + Keys.ENTER)
     print('USERNAME = ' + str(context.user1))
 
 @when("I type password")
 def fill_in_pswd(context):
+    if context.usertype == 'valid':
+        user = existing_valid_user(context)
+    else:
+        user = existing_invalid_user(context)
+    context.pswd1 = user[1]
     context.driver.find_element_by_name('password').click()
-    # context.driver.find_element_by_name('password').send_keys(context.pswd1 + Keys.ENTER)
-    context.driver.find_element_by_name('password').send_keys(context.pswd1)
+    context.driver.find_element_by_name('password').send_keys(context.pswd1 + Keys.ENTER)
+    # context.driver.find_element_by_name('password').send_keys(context.pswd1)
     print('PASSWORD = ' + str(len(context.pswd1) * '*'))
+
+@when("I type random password")
+def random_passwd(context):
+    context.pswd1 = "abcdef123456"
 
 @when("I click on 'Login'")
 def fill_in_pswd(context):
-    context.driver.find_element_by_xpath('//*[@value="Log in"]').click()
+    # context.driver.find_element_by_xpath('//*[@value="Log in"]').click()
     print('CLICK login SUCCESSFULL')
+
+@when("I type invalid format username")
+def step_impl(context):
+    pass
 
 @then("I should see the user information")
 def chk_success_login(context):
     userpage1 = context.driver.find_element_by_xpath('//*[@id="user-tools"]/strong').text
     print('Name of the user = ' + userpage1)
+    sleep(2)
     context.driver.find_element_by_xpath("//*[contains(text(), 'Users')]").click()
     print('Check User1 = ' + context.user1)
     context.driver.find_elements_by_link_text(str(context.user1))[-1].click()  # user has grp with the same name
@@ -50,3 +78,11 @@ def logout_user_page(context):
         print('User ' + context.user1 + ' successfully LOGGED OUT')
     else:
         print('User ' + context.user1 + ' IS NOT LOGGED OUT YET')
+
+@then("I should see the error appeared")
+def outcome_message1(context):
+    pass
+
+@then("I should see the text error 'Please fill out this filed.'")
+def outcome_message2(context):
+    pass
