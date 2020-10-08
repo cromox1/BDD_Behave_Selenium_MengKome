@@ -9,54 +9,48 @@ from time import sleep
 @given("I have a valid user")
 def existing_valid_user(context):
     context.usertype = 'valid'
-    user1 = 'bacaone'
-    pswd1 = 'qawsed123456'
-    # print('USER / PSWD = ' + user1 + ' / ' + str(len(pswd1) * '*'))
-    return user1,pswd1
+    return 'bacaone','qawsed123456'
 
 @given("I have an invalid user")
 def existing_invalid_user(context):
     context.usertype = 'invalid'
-    user1 = 'qwertyone'
-    pswd1 = 'thequickbrownfox'
-    # print('USER / PSWD = ' + user1 + ' / ' + str(len(pswd1) * '*'))
-    return user1,pswd1
+    return 'qwertyone','thequickbrownfox'
+
+@given("I have no user")
+def existing_no_user(context):
+    context.usertype = 'nouser'
+    return '','thequickbrownfox'
 
 @when("I type username")
 def fill_in_user(context):
-    if context.usertype == 'valid':
-        user = existing_valid_user(context)
-    else:
-        user = existing_invalid_user(context)
-    context.user1 = user[0]
+    context.user1 = usertype_userpswd(context, context.usertype)[0]
     context.driver.find_element_by_name('username').click()
     context.driver.find_element_by_name('username').send_keys(context.user1 + Keys.ENTER)
     print('USERNAME = ' + str(context.user1))
 
 @when("I type password")
 def fill_in_pswd(context):
-    if context.usertype == 'valid':
-        user = existing_valid_user(context)
-    else:
-        user = existing_invalid_user(context)
-    context.pswd1 = user[1]
+    context.pswd1 = usertype_userpswd(context, context.usertype)[1]
     context.driver.find_element_by_name('password').click()
-    context.driver.find_element_by_name('password').send_keys(context.pswd1 + Keys.ENTER)
-    # context.driver.find_element_by_name('password').send_keys(context.pswd1)
+    # context.driver.find_element_by_name('password').send_keys(context.pswd1 + Keys.ENTER)
+    context.driver.find_element_by_name('password').send_keys(context.pswd1)
     print('PASSWORD = ' + str(len(context.pswd1) * '*'))
+
+@when("I type invalid format username")
+def invalid_format_user(context):
+    context.usertype = 'informat'
+    fill_in_user(context)
 
 @when("I type random password")
 def random_passwd(context):
-    context.pswd1 = "abcdef123456"
+    context.usertype = 'random'
+    fill_in_pswd(context)
 
 @when("I click on 'Login'")
-def fill_in_pswd(context):
-    # context.driver.find_element_by_xpath('//*[@value="Log in"]').click()
+def click_on_login(context):
+    sleep(2)
+    context.driver.find_element_by_xpath('//*[@value="Log in"]').click()
     print('CLICK login SUCCESSFULL')
-
-@when("I type invalid format username")
-def step_impl(context):
-    pass
 
 @then("I should see the user information")
 def chk_success_login(context):
@@ -71,6 +65,14 @@ def chk_success_login(context):
     print('User email = ' + email1)
     print('User Joined date = ' + join1)
 
+@then("I should see the error appeared")
+def outcome_message1(context):
+    pass
+
+@then("I should see the text error 'Please fill out this filed.'")
+def outcome_message2(context):
+    pass
+
 @then("I logout")
 def logout_user_page(context):
     context.driver.find_element_by_xpath("//*[contains(text(), 'Log out')]").click()
@@ -79,10 +81,20 @@ def logout_user_page(context):
     else:
         print('User ' + context.user1 + ' IS NOT LOGGED OUT YET')
 
-@then("I should see the error appeared")
-def outcome_message1(context):
-    pass
+@then("I close the browser")
+def close_browser(context):
+    context.driver.close()
 
-@then("I should see the text error 'Please fill out this filed.'")
-def outcome_message2(context):
-    pass
+def usertype_userpswd(context, usertype):
+    if usertype:
+        if usertype == 'valid':
+            user = existing_valid_user(context)
+        elif usertype == 'invalid':
+            user = existing_invalid_user(context)
+        elif usertype == 'nouser':
+            user = existing_no_user(context)
+        else:
+            user = ('qwertyone','thequickbrownfox')
+    else:
+        user = ('hentam','hkgfDHLFGDF')
+    return user

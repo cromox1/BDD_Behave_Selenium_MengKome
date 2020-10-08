@@ -1,0 +1,117 @@
+/cygdrive/c/Users/cromox/Desktop/newselenium/BDD_Behave_Selenium_MengKome
+$ behave --no-capture 
+
+Feature: Attempt to logging in with invalid credentials # tests/python_main_site/features/feature1_login_invalid.feature:1
+
+  Scenario: None existing user try to login              # tests/python_main_site/features/feature1_login_invalid.feature:3
+    Given I go to the site "mengkome.pythonanywhere.com" # BDDCommon/CommonSteps/webstepscommon.py:8
+Navigating to the site: http://mengkome.pythonanywhere.com/admin/login/?next=/
+    And I have an invalid user                           # tests/python_main_site/steps/steps.py:14
+    When I type username                                 # tests/python_main_site/steps/steps.py:24
+USERNAME = qwertyone
+    And I type password                                  # tests/python_main_site/steps/steps.py:42
+PASSWORD = ****************
+    And I click on 'Login'                               # tests/python_main_site/steps/steps.py:71
+CLICK login SUCCESSFULL
+    Then I should see the error appeared                 # tests/python_main_site/steps/steps.py:90
+    And I close the browser                              # tests/python_main_site/steps/steps.py:106
+
+  Scenario: User try to login with wrong password        # tests/python_main_site/features/feature1_login_invalid.feature:15
+    Given I go to the site "mengkome.pythonanywhere.com" # BDDCommon/CommonSteps/webstepscommon.py:8
+Navigating to the site: http://mengkome.pythonanywhere.com/admin/login/?next=/
+    And I have a valid user                              # tests/python_main_site/steps/steps.py:9
+    When I type username                                 # tests/python_main_site/steps/steps.py:24
+USERNAME = bacaone
+    And I type random password                           # tests/python_main_site/steps/steps.py:66
+PASSWORD = ****************
+    And I click on 'Login'                               # tests/python_main_site/steps/steps.py:71
+CLICK login SUCCESSFULL
+    Then I should see the error appeared                 # tests/python_main_site/steps/steps.py:90
+    And I close the browser                              # tests/python_main_site/steps/steps.py:106
+
+  Scenario: User try to login with no password                     # tests/python_main_site/features/feature1_login_invalid.feature:25
+    Given I go to the site "mengkome.pythonanywhere.com"           # BDDCommon/CommonSteps/webstepscommon.py:8
+Navigating to the site: http://mengkome.pythonanywhere.com/admin/login/?next=/
+    And I have a valid user                                        # tests/python_main_site/steps/steps.py:9
+    When I type username                                           # tests/python_main_site/steps/steps.py:24
+USERNAME = bacaone
+    And I click on 'Login'                                         # tests/python_main_site/steps/steps.py:71
+CLICK login SUCCESSFULL
+    Then I should see the text error 'Please fill out this filed.' # tests/python_main_site/steps/steps.py:94
+    And I close the browser                                        # tests/python_main_site/steps/steps.py:106
+
+  Scenario: User try to login with no user                         # tests/python_main_site/features/feature1_login_invalid.feature:34
+    Given I go to the site "mengkome.pythonanywhere.com"           # BDDCommon/CommonSteps/webstepscommon.py:8
+Navigating to the site: http://mengkome.pythonanywhere.com/admin/login/?next=/
+    And I have no user                                             # tests/python_main_site/steps/steps.py:19
+    When I type password                                           # tests/python_main_site/steps/steps.py:42
+PASSWORD = ****************
+    And I click on 'Login'                                         # tests/python_main_site/steps/steps.py:71
+CLICK login SUCCESSFULL
+    Then I should see the text error 'Please fill out this filed.' # tests/python_main_site/steps/steps.py:94
+    And I close the browser                                        # tests/python_main_site/steps/steps.py:106
+
+  Scenario: User try to login without user                         # tests/python_main_site/features/feature1_login_invalid.feature:43
+    Given I go to the site "mengkome.pythonanywhere.com"           # BDDCommon/CommonSteps/webstepscommon.py:8
+Navigating to the site: http://mengkome.pythonanywhere.com/admin/login/?next=/
+    When I click on 'Login'                                        # tests/python_main_site/steps/steps.py:71
+CLICK login SUCCESSFULL
+    Then I should see the text error 'Please fill out this filed.' # tests/python_main_site/steps/steps.py:94
+    And I close the browser                                        # tests/python_main_site/steps/steps.py:106
+
+  Scenario: User try to login with invalid format user   # tests/python_main_site/features/feature1_login_invalid.feature:50
+    Given I go to the site "mengkome.pythonanywhere.com" # BDDCommon/CommonSteps/webstepscommon.py:8
+Navigating to the site: http://mengkome.pythonanywhere.com/admin/login/?next=/
+    When I type invalid format username                  # tests/python_main_site/steps/steps.py:61
+USERNAME = qwertyone
+    And I type password                                  # tests/python_main_site/steps/steps.py:42
+PASSWORD = ****************
+    And I click on 'Login'                               # tests/python_main_site/steps/steps.py:71
+CLICK login SUCCESSFULL
+    Then I should see the error appeared                 # tests/python_main_site/steps/steps.py:90
+    And I close the browser                              # tests/python_main_site/steps/steps.py:106
+
+Feature: Logging in with valid credentials # tests/python_main_site/features/feature2_login_valid.feature:1
+
+  Scenario: User login successfully                      # tests/python_main_site/features/feature2_login_valid.feature:3
+    Given I go to the site "mengkome.pythonanywhere.com" # BDDCommon/CommonSteps/webstepscommon.py:8
+Navigating to the site: http://mengkome.pythonanywhere.com/admin/login/?next=/
+    And I have a valid user                              # tests/python_main_site/steps/steps.py:9
+    When I type username                                 # tests/python_main_site/steps/steps.py:24
+USERNAME = bacaone
+    And I type password                                  # tests/python_main_site/steps/steps.py:42
+PASSWORD = ************
+    And I click on 'Login'                               # tests/python_main_site/steps/steps.py:71
+CLICK login SUCCESSFULL
+    Then I should see the user information               # tests/python_main_site/steps/steps.py:77
+Name of the user = PEMBACA
+Check User1 = bacaone
+User email = xixa05@yahoo.co.uk
+User Joined date = Nov. 8, 2018, 2:08 p.m.
+    And I logout                                         # tests/python_main_site/steps/steps.py:98
+User bacaone successfully LOGGED OUT
+    And I close the browser                              # tests/python_main_site/steps/steps.py:106
+
+  Scenario: User login successfully 2nd time             # tests/python_main_site/features/feature2_login_valid.feature:14
+    Given I go to the site "mengkome.pythonanywhere.com" # BDDCommon/CommonSteps/webstepscommon.py:8
+Navigating to the site: http://mengkome.pythonanywhere.com/admin/login/?next=/
+    And I have a valid user                              # tests/python_main_site/steps/steps.py:9
+    When I type username                                 # tests/python_main_site/steps/steps.py:24
+USERNAME = bacaone
+    And I type password                                  # tests/python_main_site/steps/steps.py:42
+PASSWORD = ************
+    And I click on 'Login'                               # tests/python_main_site/steps/steps.py:71
+CLICK login SUCCESSFULL
+    Then I should see the user information               # tests/python_main_site/steps/steps.py:77
+Name of the user = PEMBACA
+Check User1 = bacaone
+User email = xixa05@yahoo.co.uk
+User Joined date = Nov. 8, 2018, 2:08 p.m.
+    And I logout                                         # tests/python_main_site/steps/steps.py:98
+User bacaone successfully LOGGED OUT
+    And I close the browser                              # tests/python_main_site/steps/steps.py:106
+
+2 features passed, 0 failed, 0 skipped
+8 scenarios passed, 0 failed, 0 skipped
+52 steps passed, 0 failed, 0 skipped, 0 undefined
+Took 0m58.755s

@@ -5,17 +5,19 @@ Feature: Logging in with valid credentials
         Given I go to the site "mengkome.pythonanywhere.com"
         And I have a valid user
         When I type username
-        When I type password
-        When I click on 'Login'
+        And I type password
+        And I click on 'Login'
         Then I should see the user information
         And I logout
+        And I close the browser
 
     Scenario: User login successfully 2nd time
 
         Given I go to the site "mengkome.pythonanywhere.com"
         And I have a valid user
         When I type username
-        When I type password
-        When I click on 'Login'
+        And I type password
+        And I click on 'Login'
         Then I should see the user information
         And I logout
+        And I close the browser

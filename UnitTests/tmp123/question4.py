@@ -1,0 +1,6 @@
+input1 = input("input separated with comma : ")
+# print(input1)
+list = input1.split(',')
+print(list)
+tuple = tuple(list)
+print(tuple)
